@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "poc-rag"
+version = "0.1.0"
+description = "Développez un assistant pour la recommandation d'évènements culturels- POC RAG"
+authors = ["hyhishem <001data2025@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+langchain = "^1.2.10"
+faiss-cpu = "^1.13.2"
+mistralai = "^1.12.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
