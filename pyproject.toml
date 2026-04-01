@@ -11,6 +11,7 @@ langchain = "^1.2.10"
 faiss-cpu = "^1.13.2"
 mistralai = "^1.12.4"
 pandas = "^3.0.1"
+streamlit = "^1.56.0"
 
 [build-system]
 requires = ["poetry-core"]
