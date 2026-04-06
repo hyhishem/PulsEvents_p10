@@ -12,6 +12,10 @@ faiss-cpu = "^1.13.2"
 mistralai = "^1.12.4"
 pandas = "^3.0.1"
 streamlit = "^1.56.0"
+python-dotenv = "^1.2.2"
+langchain-community = "^0.4.1"
+langchain-mistralai = "^1.1.2"
+tqdm = "^4.67.3"
 
 [build-system]
 requires = ["poetry-core"]

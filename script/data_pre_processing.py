@@ -3,17 +3,14 @@ import pandas as pd
 import re
 
 
-# =========================
 # Import data à partir de l'API
-# =========================
 
-
-#Requete via l'api : Essonne à partir du 20 Mars 2025
+#Requete via l'api : Essonne
 
 url_base = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records/"
 params = {
     "lang": "fr",
-    "select": "uid,title_fr,longdescription_fr,daterange_fr,firstdate_begin,firstdate_end,lastdate_begin,lastdate_end,location_name,location_address,location_postalcode,location_city",
+    "select": "uid,canonicalurl,title_fr,longdescription_fr,firstdate_begin,firstdate_end,location_name,location_address,location_postalcode,location_city,location_department",
     "where": 'firstdate_begin > "2025-03-20T00:00:00+00:00" AND location_department:"Essonne"',
     "limit": 100,  
     "offset": 0
@@ -40,10 +37,8 @@ while True:
 df = pd.DataFrame.from_dict(data_complet) # convertir  en df les results 
 
 
-# =========================
-# Préprocess
-# =========================
 
+# Préprocess
 
 df.fillna("", inplace=True)
 
@@ -56,14 +51,14 @@ def clean_text(text):
 
 df["title_fr"] = df["title_fr"].apply(clean_text)
 df["longdescription_fr"] = df["longdescription_fr"].apply(clean_text)
-#df["keywords_clean"] = df["keywords_fr"].apply(clean_text)
 
-# Conversion des dates en datetime
+df = df[df["title_fr"].notna() & (df["title_fr"].str.strip() != "")]
+df = df[df["longdescription_fr"].notna() & (df["longdescription_fr"].str.strip() != "")]
+
+# Conversion dates 
 date_cols = [
     "firstdate_begin",
-    "firstdate_end",
-    "lastdate_begin",
-    "lastdate_end"
+    "firstdate_end"
 ]
 
 for col in date_cols:
@@ -72,13 +67,15 @@ for col in date_cols:
     
 df["uid"] = pd.to_numeric(df["uid"], errors="coerce")
 
-# =========================
-# Resumé
-# =========================
 
-print("Shape final :", df.shape)
-print(df.dtypes)
-
-df['text_embeding']=df['title_fr']+ '. ' + df['longdescription_fr']
+df['text_pour_embeding']=df['title_fr']+ '. ' + df['longdescription_fr']
 
 
+# Sauvegarde en Parquet 
+
+
+df.to_parquet(
+    "data/processed.parquet",
+    index=False,
+    compression="snappy"   
+)
