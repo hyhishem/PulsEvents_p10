@@ -10,7 +10,7 @@ Avant de pouvoir utiliser ce projet, assurez-vous d'avoir installé les élémen
 
 - **poetry** 
   - [Installer Poetry]([https://docs.docker.com/compose/install/)](https://python-poetry.org/docs/#installing-with-the-official-installer)
-  - 
+  
 - **Git** :
   - [Installer Git](https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git)
  
