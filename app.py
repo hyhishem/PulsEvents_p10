@@ -1,9 +1,11 @@
-import streamlit as st
+
+from def_load_vector_db import load_vector_db
 from dotenv import load_dotenv
+import streamlit as st
+
 import os
 
-from langchain_mistralai import MistralAIEmbeddings, ChatMistralAI
-from langchain_community.vectorstores import FAISS
+from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -20,20 +22,12 @@ llm = ChatMistralAI(
 
 # CHARGEMENT DE LA BASE VECTORIELLE 
 @st.cache_resource
-def load_vector_db():
-    embeddings = MistralAIEmbeddings(
-        model=os.getenv("EMBEDDING_MODEL"),
-        api_key=os.getenv("MISTRAL_API_KEY")
-    )
-    return FAISS.load_local(
-        folder_path=os.getenv("VECTOR_DB_PATH"),
-        embeddings=embeddings,
-        allow_dangerous_deserialization=True
-    )
+def get_db():
+    return load_vector_db()
 
 
 try:
-    vector_db = load_vector_db()
+    vector_db = get_db()
     st.success("Base de connaissances chargée avec succès")
 except Exception as e:
     st.error(f"Erreur lors du chargement de la base : {e}")
@@ -67,7 +61,7 @@ rag_chain = (
 
 # STREAMLIT 
 
-st.title("Puls-Events - Assistant Événements Culturels")
+st.title("Puls-Events: Assistant d'événements culturels")
 st.markdown("Posez vos questions sur les événements culturels dans Essonne")
 
 

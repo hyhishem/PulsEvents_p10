@@ -1,40 +1,17 @@
+from def_load_vector_db import load_vector_db
 from datetime import datetime, timedelta
-import os
+
 from dotenv import load_dotenv
+import os
 
-from langchain_mistralai import MistralAIEmbeddings
-from langchain_community.vectorstores import FAISS
-
-
-#  Config 
-load_dotenv()
-
-VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH")
-MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
-
-
-# BDD 
-def load_vector_db():
-    embeddings = MistralAIEmbeddings(
-        model=EMBEDDING_MODEL,
-        api_key=MISTRAL_API_KEY
-    )
-
-    return FAISS.load_local(
-        folder_path=VECTOR_DB_PATH,
-        embeddings=embeddings,
-        allow_dangerous_deserialization=True
-    )
-
-
-#  TEST 
 
 vector_db = load_vector_db()
 
 # récupération de tous les documents
+
 docs = list(vector_db.docstore._dict.values())
 assert len(docs) > 0, "La base est vide"
+
 
 departements = set()
 dates = []

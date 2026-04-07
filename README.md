@@ -49,21 +49,21 @@ poetry run python script/data_pre_processing.py
 ## 5. Vectorisation des données 
 
 
-```bash
+  ```bash
 poetry run python script/vectorisation_mistral.py
-```
+  ```
 
 ## 6. Test unitaire 
 
 
-```bash
-poetry run python test/test.py
-```
+  ```bash
+poetry run python script/test.py
+  ```
 
 ## 7. Utilisation d'un chat interactif RAG
 
 
-```bash
+  ```bash
 poetry run streamlit run app.py
-```
+  ```
 

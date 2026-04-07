@@ -1,11 +1,12 @@
-import pandas as pd
-import os
-from dotenv import load_dotenv
-
 from langchain_mistralai import MistralAIEmbeddings
 from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from dotenv import load_dotenv
+import os
+
+
 
 # charger env
 load_dotenv()   
