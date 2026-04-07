@@ -24,18 +24,25 @@ Ensuite, accédez au dossier cloné :
  ```bash
 cd PulsEvents_p10
  ```
+Dans le fichier .env, mettre à jour  la clé api de Mistral :
+
+ ```bash
+MISTRAL_API_KEY = xxxxx
+ ```
+
 ## 3.  L'environnement virtuel
 
 
  ```bash
-  
+poetry install
+
  ```
 
 
 ## 4. Le pré-processing 
  
  ```bash
-  
+poetry run python script/data_pre_processing.py
  ```
 
 
@@ -43,16 +50,20 @@ cd PulsEvents_p10
 
 
 ```bash
+poetry run python script/vectorisation_mistral.py
 ```
 
 ## 6. Test unitaire 
 
 
 ```bash
+poetry run python test/test.py
 ```
 
 ## 7. Utilisation d'un chat interactif RAG
 
 
 ```bash
+poetry run streamlit run app.py
 ```
+
