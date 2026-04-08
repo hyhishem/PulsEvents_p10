@@ -1,5 +1,6 @@
-import requests
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 import re
 
 
@@ -43,14 +44,18 @@ df = pd.DataFrame.from_dict(data_complet) # convertir  en df les results
 df.fillna("", inplace=True)
 
 # Nettoyage texte
+
 def clean_text(text):
-    text = re.sub(r'<[^>]+>', '', text)
-    text = re.sub(r'\s+', ' ', text)       
-    text = re.sub(r'[^\w\s.,!?\'"-()]', ' ', text)
+    if "<" in text and ">" in text:
+        text = BeautifulSoup(text, "html.parser").get_text()
+    text = " ".join(text.split())
+    text = re.sub(r"[^\w\s.,!?'\-()€:;]", " ", text)
     return text.strip()
+       
 
 df["title_fr"] = df["title_fr"].apply(clean_text)
 df["longdescription_fr"] = df["longdescription_fr"].apply(clean_text)
+
 
 df = df[df["title_fr"].notna() & (df["title_fr"].str.strip() != "")]
 df = df[df["longdescription_fr"].notna() & (df["longdescription_fr"].str.strip() != "")]
@@ -65,7 +70,7 @@ for col in date_cols:
     df[col] = pd.to_datetime(df[col], errors="coerce", utc=True)
     df[col] = df[col].dt.tz_convert("Europe/Paris")
     
-df["uid"] = pd.to_numeric(df["uid"], errors="coerce")
+df["uid"] = pd.to_numeric(df["uid"],errors="coerce")
 
 
 df['text_pour_embeding']=df['title_fr']+ '. ' + df['longdescription_fr']

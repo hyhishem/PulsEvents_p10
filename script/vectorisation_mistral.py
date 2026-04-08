@@ -1,6 +1,7 @@
 from langchain_mistralai import MistralAIEmbeddings
-from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
+
+from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from dotenv import load_dotenv

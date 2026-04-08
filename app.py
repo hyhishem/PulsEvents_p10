@@ -1,14 +1,14 @@
-
-from def_load_vector_db import load_vector_db
-from dotenv import load_dotenv
+from script.def_load_vector_db import load_vector_db
 import streamlit as st
-
-import os
 
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+from dotenv import load_dotenv
+import os
+
 
 # config
 load_dotenv() #charge les variables env
@@ -38,7 +38,7 @@ except Exception as e:
 prompt_template = ChatPromptTemplate.from_template("""
 Tu es un assistant spécialisé dans les événements culturels dans l'Essonne.
 Utilise uniquement le contexte pour répondre.
-Si tu ne sais pas, dis-le clairement.
+
 
 Contexte :
 {context}
@@ -47,6 +47,8 @@ Question :
 {question}
 
 Réponse :
+Si tu ne sais pas, dis-le clairement.
+
 """)
 
 
@@ -65,7 +67,7 @@ st.title("Puls-Events: Assistant d'événements culturels")
 st.markdown("Posez vos questions sur les événements culturels dans Essonne")
 
 
-# Zone de saisie
+# Zone de saisie et reponse
 if prompt := st.chat_input("Exemple : Je souhaite assister à un concert à partir d'avril 2026 ?"):
     
     # Affichage du message utilisateur

@@ -1,5 +1,4 @@
 from def_load_vector_db import load_vector_db
-from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
 import os
@@ -19,25 +18,25 @@ dates = []
 for doc in docs:
     metadata = doc.metadata
 
-    # TEST LOCALISATION 
+    # Test localisation
     location_department = metadata.get("location_department", "").lower()
     assert location_department, f"Ville manquante dans doc : {doc}"
-    
-    departements.add(location_department)
-    assert "essonne" in location_department, \
-        f"Ville hors Essonne : {location_department}"
 
-    # TEST DATE 
+    departements.add(location_department)
+    assert "essonne" in location_department, f"Ville hors Essonne : {location_department}"
+
+    # Test date_begin existe et stockage dans dates
     date = metadata.get("date_begin")
     assert date, f"Date manquante dans doc : {doc}"
 
     dates.append(date)
 
-# VALIDATION GLOBALE 
-assert len(departements) == 1, \
-    f"Plusieurs localisations détectées : {departements}"
+# VALIDATION 
+assert len(departements) == 1, f"Plusieurs localisations détectées : {departements}"
 
-print("\nTest OK")
+print(50*'-')
+print("Test OK")
+print(50*'-')
 print(f"Nombre de documents : {len(docs)}")
 print(f"Localisation : {departements}")
 print(f"Date min : {min(dates)}")
