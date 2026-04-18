@@ -82,7 +82,7 @@ Cette étape permet de :
 - génèrer les embeddings
 - créer la base vectorielle FAISS liée à es metadonné
 
-  ```bash
+ ```bash
 poetry run python script/vectorisation_mistral.py
   ```
 
@@ -95,7 +95,7 @@ On verifie :
 - Que les événements sont bien situés dans l’Essonne
 - La cohérences des dates
 
-  ```bash
+ ```bash
 poetry run pytest -v -w ignore script/test.py
   ```
 
@@ -104,7 +104,7 @@ poetry run pytest -v -w ignore script/test.py
 Lancez l'interface utilisateur :
 
 
-  ```bash
+ ```bash
 poetry run streamlit run app.py
   ```
 
