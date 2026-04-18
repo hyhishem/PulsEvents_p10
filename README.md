@@ -96,7 +96,7 @@ On verifie :
 - La cohérences des dates
 
   ```bash
-poetry run python script/test.py
+poetry run pytest -v -w ignore script/test.py
   ```
 
 ## 7. Utilisation d'un chat interactif RAG

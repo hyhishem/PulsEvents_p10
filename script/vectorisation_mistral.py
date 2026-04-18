@@ -1,3 +1,4 @@
+import pandas as pd
 from langchain_mistralai import MistralAIEmbeddings
 from langchain_community.vectorstores import FAISS
 

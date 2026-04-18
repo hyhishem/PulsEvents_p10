@@ -3,24 +3,26 @@ import streamlit as st
 
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
+from langchain_core.runnables import RunnablePassthrough,RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
-
+from datetime import datetime, timedelta,timezone
 from dotenv import load_dotenv
 import os
 
+today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
 
 # config
-load_dotenv() #charge les variables env
+load_dotenv() 
 
 
-# CONFIGURATION DU LLM 
+# LLM 
 llm = ChatMistralAI(
     model=os.getenv("LLM_MODEL"),
     api_key=os.getenv("MISTRAL_API_KEY"),
 )
 
-# CHARGEMENT DE LA BASE VECTORIELLE 
+# load vector db
 @st.cache_resource
 def get_db():
     return load_vector_db()
@@ -34,11 +36,10 @@ except Exception as e:
     st.stop()
 
 
-# PROMPT 
+# prompt 
 prompt_template = ChatPromptTemplate.from_template("""
 Tu es un assistant spécialisé dans les événements culturels dans l'Essonne.
 Utilise uniquement le contexte pour répondre.
-
 
 Contexte :
 {context}
@@ -47,7 +48,9 @@ Question :
 {question}
 
 Réponse :
+
 Si tu ne sais pas, dis-le clairement.
+Utilise la date d'aujourd'hui  qui est {date} pour répondre 
 
 """)
 
@@ -55,20 +58,21 @@ Si tu ne sais pas, dis-le clairement.
 # pipelin RAG
 
 rag_chain = (
-    {"context": vector_db.as_retriever() , "question": RunnablePassthrough()}
+    {"context":vector_db.as_retriever() , "question": RunnablePassthrough()}
+    | RunnableLambda(lambda x: {**x, "date": today})
     | prompt_template
     | llm
     | StrOutputParser()
 )
 
-# STREAMLIT 
+# Streamlit 
 
 st.title("Puls-Events: Assistant d'événements culturels")
 st.markdown("Posez vos questions sur les événements culturels dans Essonne")
 
 
 # Zone de saisie et reponse
-if prompt := st.chat_input("Exemple : Je souhaite assister à un concert à partir d'avril 2026 ?"):
+if prompt := st.chat_input("Exemple : Je souhaite assister à un concert de Rock ?"):
     
     # Affichage du message utilisateur
     with st.chat_message("user"):
