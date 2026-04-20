@@ -9,7 +9,7 @@ one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%
 
 # Import data à partir de l'API
 
-#Requete via l'api : Essonne
+#Requete via l'api : Essonne - moins d'un an
 
 url_base = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records/"
 params = {
@@ -40,7 +40,7 @@ while True:
 df = pd.DataFrame.from_dict(data_complet) 
 
 
-# Préprocess
+# Prétraitement
 
 df.fillna("", inplace=True)
 

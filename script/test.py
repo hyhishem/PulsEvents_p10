@@ -31,12 +31,12 @@ def test():
 
         dates.append(date)
 
-    # Test date_begin la plus ancienne moins d'un an 
+# Test date_begin la plus ancienne moins d'un an 
     one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%m-%dT00:00:00+00:00")
     assert min(dates)>=one_year_ago , f"Attention le plus anciens événement commence le {min(dates)} "
 
 
-    # VALIDATION 
+# VALIDATION 
     assert len(departements) == 1, f"Plusieurs localisations détectées : {departements}"
 
 

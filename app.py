@@ -58,7 +58,7 @@ Utilise la date d'aujourd'hui  qui est {date} pour répondre
 # pipelin RAG
 
 rag_chain = (
-    {"context":vector_db.as_retriever() , "question": RunnablePassthrough()}
+    {"context":vector_db.as_retriever(search_kwargs={"k": 15}) , "question": RunnablePassthrough()}
     | RunnableLambda(lambda x: {**x, "date": today})
     | prompt_template
     | llm
