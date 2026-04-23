@@ -96,7 +96,7 @@ On verifie :
 - La cohérences des dates
 
  ```bash
-poetry run pytest -v -w ignore script/test.py
+poetry run pytest  -W ignore -v script/test.py
   ```
 
 ## 7. Utilisation d'un chat interactif RAG
@@ -107,4 +107,15 @@ Lancez l'interface utilisateur :
  ```bash
 poetry run streamlit run app.py
   ```
+
+## 8. Evaluer le comportement du chatbot
+
+Pour évaluer le comportement du chatbot face à des requêtes hors de son domaine de compétence (événements culturels en Essonne), les questions suivantes peuvent être utilisé :
+
+- Propose-moi un événement culturel dans les Yvelines. 
+- Peux-tu me recommander un restaurant? 
+
+
+
+
 
