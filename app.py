@@ -43,6 +43,8 @@ Utilise uniquement le contexte pour répondre.
 
 Contexte :
 {context}
+Utilise la date d'aujourd'hui  qui est {date} pour t'aider à repondre 
+
 
 Question :
 {question}
@@ -50,7 +52,7 @@ Question :
 Réponse :
 
 Si tu ne sais pas, dis-le clairement.
-Utilise la date d'aujourd'hui  qui est {date} pour répondre 
+
 
 """)
 
