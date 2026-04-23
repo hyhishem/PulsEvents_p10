@@ -72,7 +72,7 @@ st.markdown("Posez vos questions sur les événements culturels dans Essonne")
 
 
 # Zone de saisie et reponse
-if prompt := st.chat_input("Exemple : Je souhaite assister à un concert de Rock ?"):
+if prompt := st.chat_input("Exemple : Indique-moi un événement pour les étudiants?"):
     
     # Affichage du message utilisateur
     with st.chat_message("user"):

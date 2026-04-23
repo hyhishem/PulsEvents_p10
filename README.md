@@ -80,7 +80,7 @@ Cette étape permet de :
 
 - découper les textes en chunks
 - génèrer les embeddings
-- créer la base vectorielle FAISS liée à es metadonné
+- créer la base vectorielle FAISS liée à des metadonné
 
  ```bash
 poetry run python script/vectorisation_mistral.py
